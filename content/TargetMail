@@ -1,0 +1,21 @@
+function getToken(var clientId, var clientSecret){
+	var url = "https://target.my.com/api/v2/oauth2/token.json";
+	var xhr = new XMLHttpRequest();
+
+	var data = "grant_type=client_credentials&client_id={clinetId}&client_secret={clientSecret}";
+
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.open("POST", url, false);
+	var resp = xhr.Send(data);
+
+	if(resp && resp.status == 200){
+		var tokenz = resp.responseText;
+
+		var element = document.createElement("p");
+		element.innerHTML(tokenz);
+		document.body.appendChild(element);
+	}
+
+
+
+}

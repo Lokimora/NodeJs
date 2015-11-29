@@ -1,0 +1,36 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta charset="utf-8">
+<title>TargetMail</title>
+<script type="text/javascript" src="TargetMail.js"></script>
+</head>
+
+<body>
+
+<div>
+
+<p>TSEESESEESES</p>
+<input type="text" placeholder="cliendId" id="clId" /> </br>
+<input type="text" placeholder="clientSecret" id="clSec" /> </br>
+
+<input type="button" onClick="authroize()" value="GetToken">
+
+</div>
+
+
+<script>
+	function authroize(){
+
+		var clientId = document.getElementById("clId").value;
+		var clientSecret = document.getElementById("clSec").value;
+
+		if(clientId && clientSecret){
+			getToken(clientId, clientSecret);
+		}
+
+	}
+</script>
+
+</body>
+</html>
