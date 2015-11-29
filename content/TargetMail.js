@@ -6,8 +6,9 @@ function getToken(clientId, clientSecret){
 
 
 	xhr.open("POST", url, false);
-		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		xhr.setRequestHeader("Access-Control-Allow-Origin", "*")
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+	
 
 		
 		
