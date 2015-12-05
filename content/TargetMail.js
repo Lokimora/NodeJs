@@ -1,25 +1,32 @@
-function getToken(clientId, clientSecret){
-	var url = "https://target.my.com/api/v2/oauth2/token.json";
+function getToken(clientId, clientSecret, callback){
 	var xhr = new XMLHttpRequest();
 
-	var data = "grant_type=client_credentials&client_id="+clientId+"&client_secret="+clientSecret;
 
-
-	xhr.open("POST", url, false);
+	xhr.open("GET", '/api/target/authorize', true);
 	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 	
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState != 4) return;
 
-		
-		
-	var resp = xhr.send(data);
+		callback(xhr);
+	};
 
-	if(resp && resp.status == 200){
-		var jsonObj = JSON.parse(resp.responseText);
 
-		var element = document.createElement("p");
-		element.innerHTML(jsonObj.access_token);
-		document.body.appendChild(element);
-	}
+	xhr.send();
+};
 
+function getPackages(token, callback){
+	var xhr = new XMLHttpRequest();
+
+	xhr.open("GET", 'api/target/getPackages', true);
+	xhr.setRequestHeader("Authorization", "Bearer " + token);
+
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState != 4) return;
+
+		callback(xhr);
+	}	
+
+	xhr.send();
 }

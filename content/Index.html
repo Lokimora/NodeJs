@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <title>TargetMail</title>
 <script type="text/javascript" src="TargetMail.js"></script>
+<script type="text/javascript" src="/libs/angular.min.js"></script>
 </head>
 
 <body>
@@ -14,21 +15,41 @@
 <input type="text" placeholder="cliendId" id="clId" /> </br>
 <input type="text" placeholder="clientSecret" id="clSec" /> </br>
 
-<input type="button" onClick="authroize()" value="GetToken">
+<input type="button" onClick="targetPacks()" value="GetToken">
 
 </div>
 
 
 <script>
-	function authroize(){
+	function targetPacks(){
 
 		var clientId = document.getElementById("clId").value;
 		var clientSecret = document.getElementById("clSec").value;
 
 		if(clientId && clientSecret){
-			getToken(clientId, clientSecret);
-		}
+			getToken(clientId, clientSecret, function(xhr){
+				
+				if(xhr && xhr.responseText){
 
+				var token = JSON.parse(xhr.responseText).AccessToken;
+			
+				getPackages(token, function(xhr2){
+					if(xhr2 && xhr2.responseText){
+						var packsArray = JSON.parse(xhr2.responseText);
+
+						var activePackages = packsArray.filter(isActive);
+
+						console.log(activePackages);
+					}
+				});
+
+			}
+		});
+		}
+	}
+
+	function isActive(element){
+		return element.status == 'active';
 	}
 </script>
 
